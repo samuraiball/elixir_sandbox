@@ -2,7 +2,7 @@ defmodule PingSampleWeb.Router do
   use PingSampleWeb, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
+#    plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
@@ -13,7 +13,7 @@ defmodule PingSampleWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", PingSampleWeb do
+  scope "/v1", PingSampleWeb do
     pipe_through :browser
 
     get "/", PageController, :index
