@@ -1,6 +1,6 @@
-defmodule HelloDi do
+defmodule MockService do
   @moduledoc """
-  Documentation for `HelloDi`.
+  Documentation for `MockService`.
   """
 
   @doc """
@@ -8,7 +8,7 @@ defmodule HelloDi do
 
   ## Examples
 
-      iex> HelloDi.hello()
+      iex> MockService.hello()
       :world
 
   """
