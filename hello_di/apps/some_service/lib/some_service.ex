@@ -1,18 +1,16 @@
 defmodule SomeService do
-  @moduledoc """
-  Documentation for `SomeService`.
-  """
+  @behaviour ServiceBehaviour
 
-  @doc """
-  Hello world.
+  def doSomething do
+    IO.puts "this is a service"
+  end
+end
 
-  ## Examples
 
-      iex> SomeService.hello()
-      :world
+defmodule MockService do
+  @behaviour ServiceBehaviour
 
-  """
-  def hello do
-    :world
+  def doSomething do
+    IO.puts "this is a mock"
   end
 end
