@@ -1,4 +1,0 @@
-# RestSample
-
-**TODO: Add description**
-
