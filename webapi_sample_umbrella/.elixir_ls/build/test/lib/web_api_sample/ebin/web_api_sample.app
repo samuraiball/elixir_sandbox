@@ -1,0 +1,9 @@
+{application,web_api_sample,
+             [{applications,[kernel,stdlib,elixir,logger,runtime_tools,
+                             phoenix_pubsub]},
+              {description,"web_api_sample"},
+              {modules,['Elixir.WebApiSample',
+                        'Elixir.WebApiSample.Application']},
+              {registered,[]},
+              {vsn,"0.1.0"},
+              {mod,{'Elixir.WebApiSample.Application',[]}}]}.
