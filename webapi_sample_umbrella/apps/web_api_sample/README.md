@@ -1,3 +1,0 @@
-# WebApiSample
-
-**TODO: Add description**

@@ -19,7 +19,7 @@ config :web_api_sample_web, WebApiSampleWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "/Uz/6/Mzg1bD/cJ9uui4L7WDZ6uTwv64oUUF7sIEB5wba0L8XEbBTQFlpo8cPC4D",
   render_errors: [view: WebApiSampleWeb.ErrorView, accepts: ~w(json), layout: false],
-  pubsub_server: WebApiSample.PubSub,
+  #pubsub_server: WebApiSample.PubSub,
   live_view: [signing_salt: "BfqJ0sDo"]
 
 # Configures Elixir's Logger

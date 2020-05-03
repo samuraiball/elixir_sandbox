@@ -7,5 +7,7 @@ defmodule WebApiSampleWeb.Router do
 
   scope "/api", WebApiSampleWeb do
     pipe_through :api
+
+    get "/health", HealthCheakController , :health
   end
 end

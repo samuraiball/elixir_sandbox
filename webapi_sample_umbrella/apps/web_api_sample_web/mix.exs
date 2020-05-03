@@ -40,7 +40,6 @@ defmodule WebApiSampleWeb.MixProject do
       {:phoenix, "~> 1.5.1"},
       {:telemetry_metrics, "~> 0.4"},
       {:telemetry_poller, "~> 0.4"},
-      {:web_api_sample, in_umbrella: true},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"}
     ]
