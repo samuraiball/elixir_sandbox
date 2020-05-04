@@ -17,6 +17,9 @@ defmodule WebApiSampleWeb do
   and import those modules here.
   """
 
+  @spec controller ::
+          {:__block__, [],
+           [{:alias, [...], [...]} | {:import, [...], [...]} | {:use, [...], [...]}, ...]}
   def controller do
     quote do
       use Phoenix.Controller, namespace: WebApiSampleWeb
@@ -26,19 +29,6 @@ defmodule WebApiSampleWeb do
     end
   end
 
-  def view do
-    quote do
-      use Phoenix.View,
-        root: "lib/web_api_sample_web/templates",
-        namespace: WebApiSampleWeb
-
-      # Import convenience functions from controllers
-      import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
-
-      # Include shared imports and aliases for views
-      unquote(view_helpers())
-    end
-  end
 
   def router do
     quote do
@@ -55,15 +45,6 @@ defmodule WebApiSampleWeb do
     end
   end
 
-  defp view_helpers do
-    quote do
-      # Import basic rendering functionality (render, render_layout, etc)
-      import Phoenix.View
-
-      import WebApiSampleWeb.ErrorHelpers
-      alias WebApiSampleWeb.Router.Helpers, as: Routes
-    end
-  end
 
   @doc """
   When used, dispatch to the appropriate controller/view/etc.
