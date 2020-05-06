@@ -9,8 +9,6 @@
 # move said applications out of the umbrella.
 use Mix.Config
 
-
-
 config :web_api_sample_web,
   generators: [context_app: :web_api_sample]
 
@@ -19,7 +17,7 @@ config :web_api_sample_web, WebApiSampleWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "/Uz/6/Mzg1bD/cJ9uui4L7WDZ6uTwv64oUUF7sIEB5wba0L8XEbBTQFlpo8cPC4D",
   render_errors: [view: WebApiSampleWeb.ErrorView, accepts: ~w(json), layout: false],
-  #pubsub_server: WebApiSample.PubSub,
+  # pubsub_server: WebApiSample.PubSub,
   live_view: [signing_salt: "BfqJ0sDo"]
 
 # Configures Elixir's Logger
@@ -29,6 +27,18 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+# DI
+
+case Mix.env() do
+  :test ->
+    config :user_usecase,
+      find: UserUsecase.UserUsecaseMock
+
+  _ ->
+    config :user_usecase,
+      find: UserUsecase.UserUsecaseMock
+end
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -14,7 +14,6 @@ defmodule WebApiSampleWeb.ConnCase do
   by setting `use WebApiSampleWeb.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
-
   use ExUnit.CaseTemplate
 
   using do
@@ -23,6 +22,7 @@ defmodule WebApiSampleWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import WebApiSampleWeb.ConnCase
+      import Mox
 
       alias WebApiSampleWeb.Router.Helpers, as: Routes
 
