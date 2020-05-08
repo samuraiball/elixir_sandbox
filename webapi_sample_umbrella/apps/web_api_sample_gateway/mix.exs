@@ -10,10 +10,16 @@ defmodule WebApiSampleGateway.MixProject do
       deps_path: "../../deps",
       lockfile: "../../mix.lock",
       elixir: "~> 1.10",
+      elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
   end
+
+
+  # Specifies which paths to compile per environment.
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 
   # Run "mix help compile.app" to learn about applications.
   def application do
@@ -25,7 +31,8 @@ defmodule WebApiSampleGateway.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:web_api_sample_domain, in_umbrella: true}
+      {:web_api_sample_domain, in_umbrella: true},
+      {:web_api_sample_base, in_umbrella: true}
     ]
   end
 end

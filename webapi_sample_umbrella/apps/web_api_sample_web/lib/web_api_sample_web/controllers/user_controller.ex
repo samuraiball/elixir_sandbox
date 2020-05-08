@@ -7,7 +7,9 @@ defmodule WebApiSampleWeb.UserController do
   require Logger
 
   def get(conn, %{"id" => id}) do
+
     case @user_usecase.find(id) do
+
       {:ok, user} ->
         response = %{"id" => user.id, "user_name" => user.user_name, "mail" => user.mail}
 
@@ -25,6 +27,19 @@ defmodule WebApiSampleWeb.UserController do
         conn
         |> put_status(:created)
         |> json(%{"status" => "created"})
+    end
+  end
+
+  def find_all(conn, _params) do
+
+    case @user_usecase.find_all() do
+      {:ok, users} ->
+        response = %{
+          "user_list" => Enum.map(users, &%{"id" => &1.id, "user_name" => &1.user_name,"mail" => &1.mail})
+        }
+        conn
+        |> put_status(:ok)
+        |> json(response)
     end
   end
 end

@@ -27,6 +27,43 @@ defmodule UserControllerTest do
              }
     end
 
+    test "list users", %{conn: conn} do
+      WebApiSampleBase.UserUsecaseMock
+      |> expect(:find_all, fn ->
+        {:ok,
+         [
+           %User{id: "1", user_name: "henoheno", mail: "henoheno@mohe.zi"},
+           %User{id: "2", user_name: "henoheno", mail: "henoheno@mohe.zi"},
+           %User{id: "3", user_name: "henoheno", mail: "henoheno@mohe.zi"}
+         ]}
+      end)
+
+      res =
+        conn
+        |> get("/api/user/list")
+
+      assert json_response(res, 200) ==
+               %{
+                 "user_list" => [
+                   %{
+                     "id" => "1",
+                     "user_name" => "henoheno",
+                     "mail" => "henoheno@mohe.zi"
+                   },
+                   %{
+                     "id" => "2",
+                     "user_name" => "henoheno",
+                     "mail" => "henoheno@mohe.zi"
+                   },
+                   %{
+                     "id" => "3",
+                     "user_name" => "henoheno",
+                     "mail" => "henoheno@mohe.zi"
+                   }
+                 ]
+               }
+    end
+
     test "create user", %{conn: conn} do
       target_user = %{"user_name" => "heno", "mail" => "henoheno@mohe.zi"}
 
@@ -38,7 +75,7 @@ defmodule UserControllerTest do
       WebApiSampleBase.UserUsecaseMock
       |> expect(:save, fn a ->
         # アサーションうまく行かないぽよ...
-        #assert a == create_user
+        # assert a == create_user
         :ok
       end)
 

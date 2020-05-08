@@ -9,6 +9,15 @@
 # move said applications out of the umbrella.
 use Mix.Config
 
+# Repo setting
+config :web_api_sample_driver, WebApiSampleDriver.Repo,
+  database: "web_api_sample_driver_repo",
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost"
+
+config :web_api_sample_driver, ecto_repos: [WebApiSampleDriver.Repo]
+
 config :web_api_sample_web,
   generators: [context_app: :web_api_sample]
 
@@ -29,18 +38,20 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 # DI
-
 case Mix.env() do
   :test ->
     config :web_api_sample_base,
       user_usecase: WebApiSampleBase.UserUsecaseMock,
-      user_gateway: WebApiSampleBase.UserGatewayMock
+      user_gateway: WebApiSampleBase.UserGatewayMock,
+      user_driver: WebApiSampleBase.UserDriverMock
 
   _ ->
     config :web_api_sample_base,
-      user_usecase: UserUsecase.User,
-      user_gateway: WebApiSampleBase.UserGatewayMock
+      user_usecase: WebApiSampleUsecase.UserUsecase,
+      user_gateway: WebApiSampleGateway.UserGateway,
+      user_driver: WebApiSampleDriver.UserDriver
 end
+
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -1,0 +1,12 @@
+{application,web_api_sample_driver,
+             [{applications,[kernel,stdlib,elixir,logger,postgrex,ecto_sql]},
+              {description,"web_api_sample_driver"},
+              {modules,['Elixir.WebApiSampleDriver',
+                        'Elixir.WebApiSampleDriver.Application',
+                        'Elixir.WebApiSampleDriver.Repo',
+                        'Elixir.WebApiSampleDriver.UserDriver',
+                        'Elixir.WebApiSampleDriver.UserDriverBehaior',
+                        'Elixir.WebApiSampleDriver.UserSchema']},
+              {registered,[]},
+              {vsn,"0.1.0"},
+              {mod,{'Elixir.WebApiSampleDriver.Application',[]}}]}.

@@ -1,7 +1,8 @@
 defmodule WebApiSampleUsecase.UserUsecaseBehaviour do
-  alias WebApiSampleDomain.{User}
+  alias WebApiSampleDomain.{User, Users}
   @callback find(id :: String.t()) :: {:ok, User}
-  @callback save(targetUser :: User) :: :ok
+  @callback save(targetUser :: User.t()) :: :ok
+  @callback find_all() :: {:ok, Users.t()}
 end
 
 defmodule WebApiSampleUsecase.UserUsecase do
@@ -12,6 +13,10 @@ defmodule WebApiSampleUsecase.UserUsecase do
 
   def find(id) do
     {:ok, %User{id: id, user_name: nil, mail: nil}}
+  end
+
+  def find_all() do
+    @user_gayteway.find_all()
   end
 
   def save(targetUser) do
