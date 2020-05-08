@@ -43,7 +43,9 @@ defmodule WebApiSampleWeb.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:mox, "~> 0.5", only: :test},
-      {:user_usecase, in_umbrella: true},
+      {:uuid, "~> 1.1"},
+      {:web_api_sample_usecase, in_umbrella: true},
+      {:web_api_sample_base, in_umbrella: true},
       {:web_api_sample_domain, in_umbrella: true}
     ]
   end

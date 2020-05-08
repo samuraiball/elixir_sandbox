@@ -1,0 +1,9 @@
+{application,web_api_sample_usecase,
+             [{applications,[kernel,stdlib,elixir,logger,web_api_sample_base,
+                             web_api_sample_domain,web_api_sample_port]},
+              {description,"web_api_sample_usecase"},
+              {modules,['Elixir.WebApiSampleBase.UserGatewayMock',
+                        'Elixir.WebApiSampleUsecase.UserUsecase',
+                        'Elixir.WebApiSampleUsecase.UserUsecaseBehaviour']},
+              {registered,[]},
+              {vsn,"0.1.0"}]}.

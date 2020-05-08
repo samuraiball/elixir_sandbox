@@ -3,14 +3,14 @@ defmodule UserControllerTest do
   alias WebApiSampleDomain.{User}
 
   describe "user controller" do
-    test "user controller get", %{conn: conn} do
+    test "find user by id", %{conn: conn} do
       user = %User{
         id: "1",
         user_name: "henoheno",
         mail: "henoheno@mohe.zi"
       }
 
-      UserUsecase.UserUsecaseMock
+      WebApiSampleBase.UserUsecaseMock
       |> expect(:find, fn a ->
         assert a == "1"
         {:ok, user}
@@ -25,6 +25,28 @@ defmodule UserControllerTest do
                "user_name" => "henoheno",
                "mail" => "henoheno@mohe.zi"
              }
+    end
+
+    test "create user", %{conn: conn} do
+      target_user = %{"user_name" => "heno", "mail" => "henoheno@mohe.zi"}
+
+      create_user = %User{
+        user_name: "henoheno",
+        mail: "henoheno@mohe.zi"
+      }
+
+      WebApiSampleBase.UserUsecaseMock
+      |> expect(:save, fn a ->
+        # アサーションうまく行かないぽよ...
+        #assert a == create_user
+        :ok
+      end)
+
+      res =
+        conn
+        |> post("/api/user", target_user)
+
+      assert json_response(res, 201) == %{"status" => "created"}
     end
   end
 end

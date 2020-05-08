@@ -32,12 +32,14 @@ config :phoenix, :json_library, Jason
 
 case Mix.env() do
   :test ->
-    config :user_usecase,
-      find: UserUsecase.UserUsecaseMock
+    config :web_api_sample_base,
+      user_usecase: WebApiSampleBase.UserUsecaseMock,
+      user_gateway: WebApiSampleBase.UserGatewayMock
 
   _ ->
-    config :user_usecase,
-      find: UserUsecase.UserUsecaseMock
+    config :web_api_sample_base,
+      user_usecase: UserUsecase.User,
+      user_gateway: WebApiSampleBase.UserGatewayMock
 end
 
 # Import environment specific config. This must remain at the bottom
