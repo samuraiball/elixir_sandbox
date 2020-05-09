@@ -15,6 +15,7 @@ defmodule WebApiSampleWeb.ConnCase do
   this option is not recommended for other databases.
   """
   use ExUnit.CaseTemplate
+  import Mox
 
   using do
     quote do
@@ -30,6 +31,8 @@ defmodule WebApiSampleWeb.ConnCase do
       @endpoint WebApiSampleWeb.Endpoint
     end
   end
+
+  setup :verify_on_exit!
 
   setup _tags do
     {:ok, conn: Phoenix.ConnTest.build_conn()}

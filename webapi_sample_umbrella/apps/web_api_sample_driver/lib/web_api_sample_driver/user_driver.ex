@@ -14,13 +14,14 @@ defmodule WebApiSampleDriver.UserDriver do
   alias WebApiSampleDriver.UserSchema
 
   def save(target_user_schema) do
-    case Repo.insert(target_user_schema) do
-      {:ok, _} ->
-        :ok
-
-      error ->
-        error
+    case Repo.get(UserSchema, target_user_schema.user_id) do
+      nil -> target_user_schema
+      user -> user
     end
+    |> UserSchema.changeset(Map.from_struct(target_user_schema))
+    |> Repo.insert_or_update()
+
+    :ok
   end
 
   def find_all() do

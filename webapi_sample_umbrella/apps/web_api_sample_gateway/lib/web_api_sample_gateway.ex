@@ -26,4 +26,5 @@ defmodule WebApiSampleGateway.UserGateway do
     user_schema = @user_driver.find_by(id)
     {:ok, %User{id: user_schema.user_id, user_name: user_schema.user_name, mail: user_schema.mail}}
   end
+
 end

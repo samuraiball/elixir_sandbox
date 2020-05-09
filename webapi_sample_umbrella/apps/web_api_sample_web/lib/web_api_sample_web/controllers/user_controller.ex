@@ -7,9 +7,7 @@ defmodule WebApiSampleWeb.UserController do
   require Logger
 
   def get(conn, %{"id" => id}) do
-
     case @user_usecase.find(id) do
-
       {:ok, user} ->
         response = %{"id" => user.id, "user_name" => user.user_name, "mail" => user.mail}
 
@@ -19,10 +17,28 @@ defmodule WebApiSampleWeb.UserController do
     end
   end
 
-  def create(conn, params) do
-    targetUser = %User{id: UUID.uuid4(:hex), user_name: params["user_name"], mail: params["mail"]}
+  def find_all(conn, _params) do
+    case @user_usecase.find_all() do
+      {:ok, users} ->
+        response = %{
+          "user_list" =>
+            Enum.map(users, &%{"id" => &1.id, "user_name" => &1.user_name, "mail" => &1.mail})
+        }
 
-    case @user_usecase.save(targetUser) do
+        conn
+        |> put_status(:ok)
+        |> json(response)
+    end
+  end
+
+  def create(conn, params) do
+    target_user = %User{
+      id: UUID.uuid4(:hex),
+      user_name: params["user_name"],
+      mail: params["mail"]
+    }
+
+    case @user_usecase.save(target_user) do
       :ok ->
         conn
         |> put_status(:created)
@@ -30,16 +46,12 @@ defmodule WebApiSampleWeb.UserController do
     end
   end
 
-  def find_all(conn, _params) do
+  def update(conn, params) do
+    target_user = %User{id: params["id"], user_name: params["user_name"], mail: params["mail"]}
+    @user_usecase.update(target_user)
 
-    case @user_usecase.find_all() do
-      {:ok, users} ->
-        response = %{
-          "user_list" => Enum.map(users, &%{"id" => &1.id, "user_name" => &1.user_name,"mail" => &1.mail})
-        }
-        conn
-        |> put_status(:ok)
-        |> json(response)
-    end
+    conn
+    |>put_status(:ok)
+    |> json(%{"status" => "ok"})
   end
 end

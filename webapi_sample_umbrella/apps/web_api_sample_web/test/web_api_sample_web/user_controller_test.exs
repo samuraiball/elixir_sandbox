@@ -74,7 +74,7 @@ defmodule UserControllerTest do
 
       WebApiSampleBase.UserUsecaseMock
       |> expect(:save, fn a ->
-        # アサーションうまく行かないぽよ...
+        # idは何でも良いんだけどそのアサーションうまく行かないぽよ...
         # assert a == create_user
         :ok
       end)
@@ -84,6 +84,25 @@ defmodule UserControllerTest do
         |> post("/api/user", target_user)
 
       assert json_response(res, 201) == %{"status" => "created"}
+    end
+
+    test "update user", %{conn: conn} do
+
+
+      target_user = %{"id" => "1", "user_name" => "heno", "mail" => "henoheno@mohe.zi"}
+      user = %User{id: "1", user_name: "heno", mail: "henoheno@mohe.zi"}
+
+      WebApiSampleBase.UserUsecaseMock
+      |> expect(:update, fn a ->
+        assert a == user
+        :ok
+      end)
+
+      res =
+        conn
+        |> put("/api/user", target_user)
+
+      assert json_response(res, 200) == %{"status" => "ok"}
     end
   end
 end

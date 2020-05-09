@@ -11,5 +11,6 @@ defmodule WebApiSampleWeb.Router do
     get "/user/list", UserController, :find_all
     get "/user/:id", UserController, :get
     post "/user", UserController, :create
+    put "/user", UserController, :update
   end
 end
