@@ -5,6 +5,28 @@ defmodule UserGayteWayTest do
   alias WebApiSampleDriver.UserSchema
 
   describe "user gateway test" do
+    test "find user by id" do
+      expected = %User{
+        id: "1",
+        user_name: "henoheno",
+        mail: "henoheno@mohe.zi"
+      }
+
+      target_user_schema = %UserSchema{
+        user_id: "1",
+        user_name: "henoheno",
+        mail: "henoheno@mohe.zi"
+      }
+
+      WebApiSampleBase.UserDriverMock
+      |> expect(:find_by, fn a ->
+        assert a == "1"
+        target_user_schema
+      end)
+
+      assert UserGateway.find_by("1") == {:ok, expected}
+    end
+
     test "save" do
       target_user = %User{
         id: "1",

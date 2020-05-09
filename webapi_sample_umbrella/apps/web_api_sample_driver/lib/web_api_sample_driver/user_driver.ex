@@ -2,6 +2,7 @@ defmodule WebApiSampleDriver.UserDriverBehaior do
   alias WebApiSampleDriver.UserSchema
   @callback save(target_user_schema :: UserSchema.t()) :: :ok
   @callback find_all() :: {:ok, [UserSchema.t()]}
+  @callback find_by(String.t()) :: {:ok, [UserSchema.t()]}
 end
 
 require Logger
@@ -23,6 +24,10 @@ defmodule WebApiSampleDriver.UserDriver do
   end
 
   def find_all() do
-      {:ok, Repo.all(UserSchema)}
+    {:ok, Repo.all(UserSchema)}
+  end
+
+  def find_by(id) do
+    Repo.get(UserSchema, id)
   end
 end

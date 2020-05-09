@@ -5,6 +5,20 @@ defmodule UserUsecaseTest do
   alias WebApiSampleDriver.UserSchema
 
   describe "user usecase test" do
+    test "find user by id " do
+
+
+      WebApiSampleBase.UserGatewayMock
+      |> expect(:find_by, fn a ->
+        assert a == "1"
+         %User{id: "1", user_name: "henoheno", mail: "henoheno@mohe.zi"}
+      end)
+
+      assert UserUsecase.find("1") ==
+         %User{id: "1", user_name: "henoheno", mail: "henoheno@mohe.zi"}
+    end
+
+
     test "create user" do
       WebApiSampleBase.UserGatewayMock
       |> expect(:save, fn _ ->

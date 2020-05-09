@@ -16,9 +16,14 @@ defmodule WebApiSampleGateway.UserGateway do
 
   def find_all() do
     case @user_driver.find_all() do
-
       {:ok, users_schema} ->
-        {:ok, Enum.map(users_schema, &%User{id: &1.user_id, user_name: &1.user_name, mail: &1.mail})}
+        {:ok,
+         Enum.map(users_schema, &%User{id: &1.user_id, user_name: &1.user_name, mail: &1.mail})}
     end
+  end
+
+  def find_by(id) do
+    user_schema = @user_driver.find_by(id)
+    {:ok, %User{id: user_schema.user_id, user_name: user_schema.user_name, mail: user_schema.mail}}
   end
 end
