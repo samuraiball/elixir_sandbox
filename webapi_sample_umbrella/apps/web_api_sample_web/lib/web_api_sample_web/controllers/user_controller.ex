@@ -51,7 +51,15 @@ defmodule WebApiSampleWeb.UserController do
     @user_usecase.update(target_user)
 
     conn
-    |>put_status(:ok)
+    |> put_status(:ok)
     |> json(%{"status" => "ok"})
+  end
+
+  def delete(conn, params) do
+    @user_usecase.delete(params["id"])
+
+    conn
+    |> put_status(:no_content)
+    |> json(%{"status" => "no content"})
   end
 end

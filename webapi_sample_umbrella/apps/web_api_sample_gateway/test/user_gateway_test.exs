@@ -93,5 +93,15 @@ defmodule UserGayteWayTest do
 
       assert UserGateway.find_all() == {:ok, users}
     end
+
+    test "delete" do
+      WebApiSampleBase.UserDriverMock
+      |> expect(:delete, fn a ->
+        assert a == "1"
+        :ok
+       end)
+
+      assert UserGateway.delete("1") == :ok
+    end
   end
 end

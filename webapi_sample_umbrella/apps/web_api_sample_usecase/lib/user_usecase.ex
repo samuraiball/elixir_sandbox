@@ -4,6 +4,7 @@ defmodule WebApiSampleUsecase.UserUsecaseBehaviour do
   @callback save(targetUser :: User.t()) :: :ok
   @callback find_all() :: {:ok, Users.t()}
   @callback update(User.t()) :: :ok
+  @callback delete(String.t()) :: :ok
 end
 
 defmodule WebApiSampleUsecase.UserUsecase do
@@ -34,5 +35,9 @@ defmodule WebApiSampleUsecase.UserUsecase do
         User.update(target_user, update_user)
         |> @user_gayteway.save()
     end
+  end
+
+  def delete(id) do
+    @user_gayteway.delete(id)
   end
 end

@@ -87,8 +87,6 @@ defmodule UserControllerTest do
     end
 
     test "update user", %{conn: conn} do
-
-
       target_user = %{"id" => "1", "user_name" => "heno", "mail" => "henoheno@mohe.zi"}
       user = %User{id: "1", user_name: "heno", mail: "henoheno@mohe.zi"}
 
@@ -103,6 +101,21 @@ defmodule UserControllerTest do
         |> put("/api/user", target_user)
 
       assert json_response(res, 200) == %{"status" => "ok"}
+    end
+
+    test "delete user", %{conn: conn} do
+
+      WebApiSampleBase.UserUsecaseMock
+      |> expect(:delete, fn a ->
+        assert a == "1"
+        :ok
+      end)
+
+      res =
+        conn
+        |> delete("api/user/1")
+
+      assert json_response(res, 204) == %{"status" => "no content"}
     end
   end
 end

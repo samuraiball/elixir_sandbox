@@ -41,23 +41,34 @@ defmodule UserUsecaseTest do
                %User{id: "3", user_name: "henoheno", mail: "henoheno@mohe.zi"}
              ]
     end
-  end
 
-  test "update exist user" do
-    user = %User{id: "1", user_name: "henoheno", mail: "henoheno@mohe.zi"}
+    test "update exist user" do
+      user = %User{id: "1", user_name: "henoheno", mail: "henoheno@mohe.zi"}
 
-    updated_user = %User{id: "1", user_name: "updated_henoheno", mail: "henoheno@mohe.zi"}
+      updated_user = %User{id: "1", user_name: "updated_henoheno", mail: "henoheno@mohe.zi"}
 
-    WebApiSampleBase.UserGatewayMock
-    |> expect(:find_by, fn a ->
-      assert a == "1"
-      {:ok, user}
-    end)
-    |> expect(:save, fn a ->
-      assert a == updated_user
-      :ok
-    end)
+      WebApiSampleBase.UserGatewayMock
+      |> expect(:find_by, fn a ->
+        assert a == "1"
+        {:ok, user}
+      end)
+      |> expect(:save, fn a ->
+        assert a == updated_user
+        :ok
+      end)
 
-    assert UserUsecase.update(updated_user) == :ok
+      assert UserUsecase.update(updated_user) == :ok
+    end
+
+    test "delete user" do
+
+      WebApiSampleBase.UserGatewayMock
+      |> expect(:delete, fn a ->
+        assert a == "1"
+        :ok
+       end)
+
+      assert UserUsecase.delete("1") == :ok
+    end
   end
 end

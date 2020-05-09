@@ -3,6 +3,7 @@ defmodule WebApiSampleDriver.UserDriverBehaior do
   @callback save(target_user_schema :: UserSchema.t()) :: :ok
   @callback find_all() :: {:ok, [UserSchema.t()]}
   @callback find_by(String.t()) :: {:ok, [UserSchema.t()]}
+  @callback delete(String.t()) :: :ok
 end
 
 require Logger
@@ -30,5 +31,9 @@ defmodule WebApiSampleDriver.UserDriver do
 
   def find_by(id) do
     Repo.get(UserSchema, id)
+  end
+
+  def delete(id) do
+    Repo.delete(%UserSchema{user_id: id})
   end
 end

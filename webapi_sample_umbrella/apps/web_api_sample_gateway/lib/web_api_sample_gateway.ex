@@ -27,4 +27,7 @@ defmodule WebApiSampleGateway.UserGateway do
     {:ok, %User{id: user_schema.user_id, user_name: user_schema.user_name, mail: user_schema.mail}}
   end
 
+  def delete(id) do
+    @user_driver.delete(id)
+  end
 end
